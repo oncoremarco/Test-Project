@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
+
     }
 
     void Update()
@@ -32,16 +33,16 @@ public class Movement : MonoBehaviour
     {
         if (m_Direction == "right")
             m_Rigidbody.velocity = transform.right * Speed;
-            //transform.Translate(transform.right * Speed);
         else if (m_Direction == "left")
             m_Rigidbody.velocity = -transform.right * Speed;
-            //transform.Translate(-transform.right * Speed);
         else if (m_Direction == "up")
             m_Rigidbody.velocity = transform.up * Speed;
-            //transform.Translate(transform.up * Speed);
         else if (m_Direction == "down")
             m_Rigidbody.velocity = -transform.up * Speed;
-            //transform.Translate(-transform.up * Speed);
 
+        else
+            m_Rigidbody.velocity = Vector3.zero;
     }
+
+
 }
