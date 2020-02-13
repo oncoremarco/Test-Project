@@ -39,6 +39,7 @@ public class MovementModified : MonoBehaviour
         Vector3 moveAmount = new Vector3();
 
         moveAmount = m_Direction * (Speed * Time.deltaTime);
+
         CheckDirectionForCollision(ref moveAmount);
 
         transform.Translate(moveAmount);
@@ -58,7 +59,7 @@ public class MovementModified : MonoBehaviour
         {
             Debug.Log($"Collider hit at {hit.point}");
             targetPoint = hit.point;
-            moveAmount = hit.distance * direction;
+            moveAmount = (hit.distance * direction) - new Vector3((boxCollider.bounds.extents.x * direction.x), (boxCollider.bounds.extents.y * direction.y), 0);
         }
         
 
