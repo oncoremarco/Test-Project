@@ -288,7 +288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1080992802
 Rigidbody2D:
   serializedVersion: 4
@@ -445,10 +445,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661ec0fc71770724f8595e2184a486eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
+  Speed: 30
   layerMask:
     serializedVersion: 2
     m_Bits: 2147483648
+  raycastLength: 1
 --- !u!50 &1090903262
 Rigidbody2D:
   serializedVersion: 4

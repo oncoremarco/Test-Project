@@ -8,11 +8,10 @@ public class MovementModified : MonoBehaviour
     BoxCollider2D boxCollider;
     Vector3 m_Direction;
     public float Speed;
-    [SerializeField] private LayerMask layerMask;
-
+    [SerializeField] private LayerMask layerMask = default;
     [SerializeField] private float raycastLength = 1;
 
-    Vector3 moveAmount;
+
 
     void Awake()
     {
@@ -37,27 +36,29 @@ public class MovementModified : MonoBehaviour
 
     void FixedUpdate()
     {
-        moveAmount = m_Direction * Speed;
-        CheckDirectionForCollision();
+        Vector3 moveAmount = new Vector3();
+
+        moveAmount = m_Direction * (Speed * Time.deltaTime);
+        CheckDirectionForCollision(ref moveAmount);
 
         transform.Translate(moveAmount);
     }
 
-    void CheckDirectionForCollision()
+    void CheckDirectionForCollision(ref Vector3 moveAmount)
     {
         Vector3 direction = moveAmount.normalized;
 
         Vector3 sensor_position = new Vector3(transform.position.x + (boxCollider.bounds.extents.x * direction.x), transform.position.y + (boxCollider.bounds.extents.y * direction.y));
    
         
-        RaycastHit2D hit = Physics2D.Raycast(sensor_position, direction, raycastLength, layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(sensor_position, direction, moveAmount.magnitude, layerMask);
         Vector3 targetPoint = sensor_position + (direction * raycastLength);
 
         if (hit)
         {
             Debug.Log($"Collider hit at {hit.point}");
             targetPoint = hit.point;
-            moveAmount = Vector3.zero;
+            moveAmount = hit.distance * direction;
         }
         
 
