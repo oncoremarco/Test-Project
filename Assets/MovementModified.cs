@@ -50,8 +50,8 @@ public class MovementModified : MonoBehaviour
         Vector3 direction = moveAmount.normalized;
 
         Vector3 sensor_position = new Vector3(transform.position.x + (boxCollider.bounds.extents.x * direction.x), transform.position.y + (boxCollider.bounds.extents.y * direction.y));
-   
-        
+
+        Debug.Log($"MovementAmount Magnitude: {moveAmount.magnitude}");
         RaycastHit2D hit = Physics2D.Raycast(sensor_position, direction, moveAmount.magnitude, layerMask);
         Vector3 targetPoint = sensor_position + (direction * raycastLength);
 
@@ -59,7 +59,10 @@ public class MovementModified : MonoBehaviour
         {
             Debug.Log($"Collider hit at {hit.point}");
             targetPoint = hit.point;
-            moveAmount = (hit.distance * direction) - new Vector3((boxCollider.bounds.extents.x * direction.x), (boxCollider.bounds.extents.y * direction.y), 0);
+
+            Debug.Log($"MovementAmount Before: {moveAmount}");
+            moveAmount = hit.distance * direction;
+            Debug.Log($"MovementAmount After: {moveAmount}");
         }
         
 
